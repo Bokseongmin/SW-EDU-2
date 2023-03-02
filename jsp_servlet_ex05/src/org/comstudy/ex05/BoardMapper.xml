@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.comstudy.ex05.BoardMapper">
+	<select id="findAll" resultType="org.comstudy.myweb.board.model.BoardDTO">
+		SELECT * FROM board
+	</select>
+	
+	<select id="findOne"
+		resultType="org.comstudy.myweb.board.model.BoardDTO">
+		SELECT * FROM board WHERE seq = #{seq}
+	</select>
+	
+	<insert id="save" parameterType="org.comstudy.myweb.board.model.BoardDTO">
+		INSERT INTO board(title, content, writer)
+		VALUES(#{title}, #{content}, #{writer})
+	</insert>
+	
+	<update id="update" parameterType="org.comstudy.myweb.board.model.BoardDTO">
+		UPDATE board
+		SET title=#{title}, content=#{content}, writer=#{writer}
+		WHERE seq=#{seq}
+	</update>
+	
+	<delete id="delete" parameterType="org.comstudy.myweb.board.model.BoardDTO">
+		DELETE FROM board
+		WHERE seq=#{seq}
+	</delete>
+</mapper>

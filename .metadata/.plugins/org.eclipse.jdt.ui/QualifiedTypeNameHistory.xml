@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.comstudy.myweb.board.model.BoardDTO"/>
+    <fullyQualifiedTypeName name="org.comstudy.myweb.board.model.BoardDAO"/>
+</qualifiedTypeNameHistroy>

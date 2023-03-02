@@ -1,0 +1,86 @@
+package org.comstudy.myweb.board.model;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+public class BoardDAO {
+
+	SqlSession session;
+
+	public BoardDAO() {
+		try {
+			String resource = "org/comstudy/ex05/mybatis-config.xml";
+			InputStream inputStream = Resources.getResourceAsStream(resource);
+			SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+			session = sqlSessionFactory.openSession();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public List<BoardDTO> findAll() {
+		List<BoardDTO> list = session.selectList("org.comstudy.ex05.SaramMapper.findAll");
+		return list;
+	}
+
+	public BoardDTO findOne(BoardDTO dto) {
+		BoardDTO board = session.selectOne("org.comstudy.ex05.SaramMapper.findOne", dto.getSeq());
+		return board;
+	}
+
+	// 입력
+	public void save(BoardDTO dto) {
+		session.insert("org.comstudy.ex05.SaramMapper.save", dto);
+		session.commit();
+	}
+
+	// 수정
+	public void update(BoardDTO dto) {
+		session.update("org.comstudy.ex05.SaramMapper.update", dto);
+		session.commit();
+	}
+
+	// 삭제
+	public void remove(BoardDTO dto) {
+		session.delete("org.comstudy.ex05.SaramMapper.delete", dto);
+		session.commit();
+	}
+	
+	// 테스트
+	static BoardDAO dao = new BoardDAO();
+	public static void main(String[] args) {
+		BoardDTO board = dao.findOne(new BoardDTO(0L, "", "", new Date(), "", 0L));
+		// List<SaramDTO> list = dao.findAll();
+		/*
+		SaramDTO saram = new SaramDTO();
+		saram.setId("test");
+		saram.setName("test2");
+		saram.setAge(3);
+		dao.save(saram);
+		*/
+		/*
+		SaramDTO saram = new SaramDTO();
+		saram.setSeq(1);
+		saram.setId("변경된 아이디");
+		saram.setName("변경된 이름");
+		saram.setAge(0);
+		dao.update(saram);
+		*/
+		/*
+		BoardDTO board = new BoardDTO();
+		board.setSeq(1);
+		dao.remove(board);
+		*/
+		List<BoardDTO> list = dao.findAll();
+		System.out.println(list);
+	}
+}
